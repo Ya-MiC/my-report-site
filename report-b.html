@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>青年 AI 信任边界与情感归属 · 多交叉分析</title>
+  <script src="./assets/echarts.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
+      background: #f0efec;
+      color: #161616;
+      padding: 36px 20px 60px;
+    }
+
+    .page {
+      max-width: 1260px;
+      margin: 0 auto
+    }
+
+    .site-header {
+      text-align: center;
+      margin-bottom: 36px
+    }
+
+    .site-header h1 {
+      font-size: 23px;
+      font-weight: 900;
+      letter-spacing: .03em;
+      color: #0f1111;
+      margin-bottom: 8px;
+    }
+
+    .site-header .sub {
+      font-size: 12.5px;
+      color: #8a8a8a;
+      line-height: 2;
+    }
+
+    .site-header .sub b {
+      color: #1A5F7A;
+      font-weight: 700;
+    }
+
+    .charts-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .chart-card {
+      background: #fdfcfb;
+      border-radius: 16px;
+      padding: 20px 20px 20px;
+      border: 1px solid rgba(20, 20, 20, .05);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, .03), 0 10px 28px rgba(0, 0, 0, .05);
+      overflow: hidden;
+    }
+
+    .chart-card.full {
+      grid-column: 1 / -1
+    }
+
+    .chart-head {
+      margin-bottom: 10px
+    }
+
+    .card-title {
+      font-size: 15px;
+      line-height: 1.5;
+      font-weight: 900;
+      color: #0f1111;
+      margin-bottom: 9px;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      height: 24px;
+      padding: 0 10px;
+      border-radius: 7px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #0f766e;
+      background: #edf9f7;
+      border: 1px solid #cfeee8;
+      letter-spacing: .01em;
+    }
+
+    .chart-box {
+      width: 100%;
+      height: 320px
+    }
+
+    .chart-box.tall {
+      height: 410px
+    }
+
+    .card-note {
+      margin-top: 10px;
+      font-size: 12px;
+      line-height: 1.75;
+      color: #717171;
+    }
+
+    .detail-block {
+      margin-top: 13px;
+      padding: 12px 14px;
+      background: #f8f7f4;
+      border: 1px solid rgba(20, 20, 20, .06);
+      border-radius: 11px;
+    }
+
+    .detail-block.conclusion {
+      background: #f2fbf8;
+      border-color: #c8e9df;
+    }
+
+    .detail-title {
+      font-size: 12px;
+      font-weight: 800;
+      color: #1f1f1f;
+      margin-bottom: 7px;
+      letter-spacing: .01em;
+    }
+
+    .detail-text {
+      font-size: 12px;
+      line-height: 1.85;
+      color: #484848;
+    }
+
+    @media(max-width:900px) {
+      .charts-grid {
+        grid-template-columns: 1fr
+      }
+
+      .chart-card.full {
+        grid-column: auto
+      }
+
+      .chart-box,
+      .chart-box.tall {
+        height: 320px
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+    <div class="site-header">
+      <h1>青年对人工智能的信任边界与情感归属</h1>
+      <div class="sub">
+        <b>n = 555</b> · 多变量交叉分析可视化 · 问卷调查数据<br>
+        所有图表均为三变量及以上交叉分析，每张图下方含原问卷题目、分析目的与论文写法提示
+      </div>
+    </div>
+    <div class="charts-grid">
+
+      <section class="chart-card full">
+        <div class="chart-head">
+          <div class="card-title">地域 × 使用时长 × AI情感依赖（Q3 × Q4 × Q9 / Q11）</div>
+          <div class="tag-row"><span class="tag">多交叉</span><span class="tag">地域分层</span><span
+              class="tag">折线图</span><span class="tag">使用行为</span></div>
+        </div>
+        <div id="c1" class="chart-box"></div>
+        <p class="card-note">实线是Q9，虚线是Q11。看不同地域里，使用时长增加时，情绪时选AI倾诉与AI失联失落感是否同步上升。</p>
+
+        <div class="detail-block">
+          <div class="detail-title">📋 原问卷题目</div>
+          <div class="detail-text">第3题 地域；第4题 每日使用AI时长；第9题 情绪低落时是否选AI倾诉；第11题 AI突然无法使用时是否失落。</div>
+        </div>
+
+        <div class="detail-block">
+          <div class="detail-title">🔍 这张图在分析什么</div>
+          <div class="detail-text">检验使用越久、情感卷入越深这一结构，在福建、台湾与其他地区中是否保持同方向成立。</div>
+        </div>
+
+        <div class="detail-block conclusion">
+          <div class="detail-title">✍️ 可直接写进论文的结论</div>
+          <div class="detail-text">若多组曲线都随使用时长递增，可写为：地域差异主要影响强度，而不改变整体方向；更长的AI使用时长普遍伴随更强的情绪倾诉倾向与失联失落感。</div>
+        </div>
+      </section>
+
+      <section class="chart-card full">
+        <div class="chart-head">
+          <div class="card-title">性别 × 情感用途占比 × 情感卷入三题（Q2 × Q5 × Q9 / Q10 / Q11）</div>
+          <div class="tag-row"><span class="tag">多交叉</span><span class="tag">混合图</span><span
+              class="tag">性别分层</span><span class="tag">用途结构</span></div>
+        </div>
+        <div id="c2" class="chart-box"></div>
+        <p class="card-note">柱形是Q9，折线是Q10与Q11。看情感用途占比越高时，三项情感卷入指标是否一起抬升，以及男女趋势是否同向。</p>
+
+        <div class="detail-block">
+          <div class="detail-title">📋 原问卷题目</div>
+          <div class="detail-text">第2题 性别；第5题 情感型用途占比；第9题 选AI倾诉；第10题 被AI关心感；第11题 AI失联失落感。</div>
+        </div>
+
+        <div class="detail-block">
+          <div class="detail-title">🔍 这张图在分析什么</div>
+          <div class="detail-text">观察越把AI用于情感陪伴而不是工具性使用，是否越容易形成稳定的情感卷入结构；同时判断这种结构是否存在性别差异。</div>
+        </div>
+
+        <div class="detail-block conclusion">
+          <div class="detail-title">✍️ 可直接写进论文的结论</div>
+          <div class="detail-text">若两性曲线都随情感用途占比上升而抬升，可写为：将AI作为情感出口而非单纯工具的青年，更容易形成多维情感卷入结构；性别差异主要体现在幅度强弱，而不是关系方向相反。
+          </div>
+        </div>
+      </section>
+
+      <section class="chart-card">
+        <div class="chart-head">
+          <div class="card-title">人际高墙 × 算法认知 × 被关心感（Q14 × Q7 × Q10）</div>
+          <div class="tag-row"><span class="tag">多交叉</span><span class="tag">热力图</span><span class="tag">三变量</span><span
+              class="tag">悖论分析</span></div>
+        </div>
+        <div id="c3" class="chart-box tall"></div>
+        <p class="card-note">颜色越深，说明Q10被AI关心感越高。横轴是Q7算法认知，纵轴是Q14人际高墙。</p>
+
+        <div class="detail-block">
+          <div class="detail-title">📋 原问卷题目</div>
+          <div class="detail-text">第14题 人际筑墙程度；第7题 承认AI本质是算法；第10题 仍能感受AI关心和理解。</div>
+        </div>
+
+        <div class="detail-block">
+          <div class="detail-title">🔍 这张图在分析什么</div>
+          <div class="detail-text">同时观察现实关系防御与理性算法认知两种力量，哪一种更能影响被AI关心的主观感受。</div>
+        </div>
+
+        <div class="detail-block conclusion">
+          <div class="detail-title">✍️ 可直接写进论文的结论</div>
+          <div class="detail-text">如果高人际高墙者即便在高算法认知下仍保持较高被关心感，就可以写为：理性认知并不足以完全抑制情感卷入，现实关系中的防御姿态仍是推动AI情感归属的重要结构因素。</div>
+        </div>
+      </section>
+
+      <section class="chart-card full">
+        <div class="chart-head">
+          <div class="card-title">地域 × 人际高墙 × 选AI倾诉分布（Q3 × Q14 × Q9）</div>
+          <div class="tag-row"><span class="tag">多交叉</span><span class="tag">堆叠柱状图</span><span
+              class="tag">结构分布</span><span class="tag">地域比较</span></div>
+        </div>
+        <div id="c4" class="chart-box tall"></div>
+        <p class="card-note">颜色越深代表Q9得分越高，也就是越倾向在情绪低落时选AI倾诉。看不同地域中，高Q14组是否深色面积更大。</p>
+
+        <div class="detail-block">
+          <div class="detail-title">📋 原问卷题目</div>
+          <div class="detail-text">第3题 地域；第14题 人际筑墙程度；第9题 情绪低落时是否选AI倾诉。</div>
+        </div>
+
+        <div class="detail-block">
+          <div class="detail-title">🔍 这张图在分析什么</div>
+          <div class="detail-text">检验人际回避是否推动AI成为情绪倾诉对象，以及这种结构在不同地域中是否保持相似。</div>
+        </div>
+
+        <div class="detail-block conclusion">
+          <div class="detail-title">✍️ 可直接写进论文的结论</div>
+          <div class="detail-text">若高Q14组在多个地域中都更集中于Q9高分端，可写为：人际关系中的防御与后撤，并非局部个例，而是跨群体地推动青年在情绪脆弱时转向AI倾诉。</div>
+        </div>
+      </section>
+
+      <section class="chart-card">
+        <div class="chart-head">
+          <div class="card-title">性别 × 地域 × 技术信任四维结构（Q2 × Q3 × Q15）</div>
+          <div class="tag-row"><span class="tag">多交叉</span><span class="tag">雷达图</span><span class="tag">跨文化</span><span
+              class="tag">态度结构</span></div>
+        </div>
+        <div id="c5" class="chart-box tall"></div>
+        <p class="card-note">四个维度包括文化认同、隐私担忧、边界恐惧、能力退化担忧。轮廓差异体现不同群体对AI的整体信任结构。</p>
+
+        <div class="detail-block">
+          <div class="detail-title">📋 原问卷题目</div>
+          <div class="detail-text">第2题 性别；第3题 地域；第15题 四个滑块维度，分别为文化认同、隐私担忧、边界模糊恐惧、能力退化担忧。</div>
+        </div>
+
+        <div class="detail-block">
+          <div class="detail-title">🔍 这张图在分析什么</div>
+          <div class="detail-text">观察不同群体的差异究竟表现为某一项特别突出，还是整体担忧结构轮廓不同。</div>
+        </div>
+
+        <div class="detail-block conclusion">
+          <div class="detail-title">✍️ 可直接写进论文的结论</div>
+          <div class="detail-text">
+            若各群体雷达轮廓总体相似但个别维度略高，可写为：群体差异更多体现为局部强调点，而不是完全不同的技术态度框架；若轮廓差异明显，则可写为不同群体对AI的信任边界具有结构性差异。</div>
+        </div>
+      </section>
+
+      <section class="chart-card">
+        <div class="chart-head">
+          <div class="card-title">性别 × 地域 × 现实情感开放度（Q2 × Q3 × Q12）</div>
+          <div class="tag-row"><span class="tag">多交叉</span><span class="tag">雷达图</span><span
+              class="tag">现实关系</span><span class="tag">人际结构</span></div>
+        </div>
+        <div id="c6" class="chart-box tall"></div>
+        <p class="card-note">五个维度分别是好朋友、普通朋友、同学搭子、陌生人、家人长辈。轮廓在某个维度凹下去，说明对该类人更设防。</p>
+
+        <div class="detail-block">
+          <div class="detail-title">📋 原问卷题目</div>
+          <div class="detail-text">第2题 性别；第3题 地域；第12题 五类现实人群情感开放度，包括好朋友、普通朋友、同学搭子、陌生人、家人长辈。</div>
+        </div>
+
+        <div class="detail-block">
+          <div class="detail-title">🔍 这张图在分析什么</div>
+          <div class="detail-text">为AI情感归属提供现实关系背景，判断哪些群体在现实人际中更开放，哪些更设防。</div>
+        </div>
+
+        <div class="detail-block conclusion">
+          <div class="detail-title">✍️ 可直接写进论文的结论</div>
+          <div class="detail-text">若某些群体在陌生人与普通朋友维度明显更低，但在亲密关系维度并不低，可写为：其并非整体冷淡，而是呈现明显的选择性防御型开放结构。</div>
+        </div>
+      </section>
+
+      <section class="chart-card full">
+        <div class="chart-head">
+          <div class="card-title">地域 × 使用时长 × AI形态首选（Q3 × Q4 × Q13）</div>
+          <div class="tag-row"><span class="tag">多交叉</span><span class="tag">堆叠柱状图</span><span
+              class="tag">排序题</span><span class="tag">接受边界</span></div>
+        </div>
+        <div id="c7" class="chart-box tall"></div>
+        <p class="card-note">每一格代表该地域与使用时长组里，把某种AI形态排在第一位的人数。重点看高频使用者是否更偏向深度介入型AI。</p>
+
+        <div class="detail-block">
+          <div class="detail-title">📋 原问卷题目</div>
+          <div class="detail-text">第3题 地域；第4题 使用时长；第13题 AI形态排序，提取第一位首选形态。</div>
+        </div>
+
+        <div class="detail-block">
+          <div class="detail-title">🔍 这张图在分析什么</div>
+          <div class="detail-text">检验高频用户与不同地域青年，在AI介入私人生活的接受边界上，更偏向基础网页、专属记忆、全时Agent还是具身机器人。</div>
+        </div>
+
+        <div class="detail-block conclusion">
+          <div class="detail-title">✍️ 可直接写进论文的结论</div>
+          <div class="detail-text">如果高频用户更集中于更深介入型AI形态，可写为：使用经验越丰富，青年越可能把AI从随开随用的工具重新想象为持续在场的私人系统。</div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <script>
+    const chart_c1 = echarts.init(document.getElementById('c1'));
+    chart_c1.setOption({ "tooltip": { "trigger": "axis" }, "legend": { "top": 4, "itemWidth": 14, "itemHeight": 8, "textStyle": { "fontSize": 12 } }, "grid": { "left": 58, "right": 20, "top": 72, "bottom": 48 }, "xAxis": { "type": "category", "data": ["15分钟以下", "15 ~ 30分钟", "30分钟 ~ 1小时", "1小时 ~ 2小时", "2小时以上"], "axisLabel": { "interval": 0, "fontSize": 11 }, "axisLine": { "lineStyle": { "color": "#d9d9d9" } }, "axisTick": { "show": false } }, "yAxis": { "type": "value", "min": 1, "max": 5, "interval": 1, "name": "均值(1-5)", "nameTextStyle": { "color": "#888", "fontSize": 11 }, "axisLine": { "show": false }, "axisTick": { "show": false }, "splitLine": { "lineStyle": { "color": "#ececec", "type": "dashed" } } }, "series": [{ "name": "台湾 · Q9 选AI倾诉", "type": "line", "smooth": true, "symbolSize": 7, "lineStyle": { "width": 3 }, "data": [2.79, 2.87, 3.3, 3.56, 3.6] }, { "name": "台湾 · Q11 失落感", "type": "line", "smooth": true, "symbolSize": 7, "lineStyle": { "width": 3, "type": "dashed" }, "data": [2.55, 2.77, 2.83, 3.16, 3.27] }, { "name": "其他 · Q9 选AI倾诉", "type": "line", "smooth": true, "symbolSize": 7, "lineStyle": { "width": 3 }, "data": [4.5, 3.17, 3.5, 3.5, 3.47] }, { "name": "其他 · Q11 失落感", "type": "line", "smooth": true, "symbolSize": 7, "lineStyle": { "width": 3, "type": "dashed" }, "data": [2.5, 2.83, 2.69, 3.14, 3.35] }] });
+    const chart_c2 = echarts.init(document.getElementById('c2'));
+    chart_c2.setOption({ "tooltip": { "trigger": "axis" }, "legend": { "top": 4, "itemWidth": 14, "itemHeight": 8, "textStyle": { "fontSize": 11 } }, "grid": { "left": 58, "right": 20, "top": 80, "bottom": 46 }, "xAxis": { "type": "category", "data": ["0-10%", "10-20%", "20-30%", "30-50%", "50%以上"], "axisLine": { "lineStyle": { "color": "#d9d9d9" } }, "axisTick": { "show": false }, "axisLabel": { "fontSize": 11 } }, "yAxis": { "type": "value", "min": 1, "max": 5, "interval": 1, "name": "均值(1-5)", "nameTextStyle": { "color": "#888", "fontSize": 11 }, "axisLine": { "show": false }, "axisTick": { "show": false }, "splitLine": { "lineStyle": { "color": "#ececec", "type": "dashed" } } }, "series": [{ "name": "男 · Q9 选AI倾诉", "type": "bar", "smooth": false, "symbolSize": 7, "barMaxWidth": 22, "lineStyle": { "width": 3 }, "itemStyle": { "color": "#4ECDC4", "borderRadius": [4, 4, 0, 0] }, "data": [2.48, 3.25, 3.57, 4.18, 5.0] }, { "name": "男 · Q10 被关心感", "type": "line", "smooth": true, "symbolSize": 7, "barMaxWidth": 22, "lineStyle": { "width": 3 }, "itemStyle": { "color": "#1A5F7A", "borderRadius": 0 }, "data": [2.54, 3.06, 3.24, 3.98, 4.0] }, { "name": "男 · Q11 失落感", "type": "line", "smooth": true, "symbolSize": 7, "barMaxWidth": 22, "lineStyle": { "width": 3 }, "itemStyle": { "color": "#9AE6D6", "borderRadius": 0 }, "data": [2.11, 2.87, 3.33, 3.73, 5.0] }, { "name": "女 · Q9 选AI倾诉", "type": "bar", "smooth": false, "symbolSize": 7, "barMaxWidth": 22, "lineStyle": { "width": 3 }, "itemStyle": { "color": "#FF7F50", "borderRadius": [4, 4, 0, 0] }, "data": [2.65, 3.23, 3.55, 4.1, 5.0] }, { "name": "女 · Q10 被关心感", "type": "line", "smooth": true, "symbolSize": 7, "barMaxWidth": 22, "lineStyle": { "width": 3 }, "itemStyle": { "color": "#c94b1e", "borderRadius": 0 }, "data": [2.65, 3.13, 3.49, 3.95, 5.0] }, { "name": "女 · Q11 失落感", "type": "line", "smooth": true, "symbolSize": 7, "barMaxWidth": 22, "lineStyle": { "width": 3 }, "itemStyle": { "color": "#FBBF8A", "borderRadius": 0 }, "data": [2.42, 2.94, 3.08, 3.78, 4.0] }] });
+    const chart_c3 = echarts.init(document.getElementById('c3'));
+    chart_c3.setOption({ "tooltip": { "position": "top", "backgroundColor": "rgba(28,28,28,.92)", "borderWidth": 0, "textStyle": { "color": "#fff" } }, "grid": { "left": 90, "right": 90, "top": 28, "bottom": 80 }, "xAxis": { "type": "category", "data": ["1", "2", "3", "4", "5"], "name": "Q7 算法认知", "nameLocation": "center", "nameGap": 46, "nameTextStyle": { "color": "#666", "fontSize": 11 }, "splitArea": { "show": true }, "axisLine": { "lineStyle": { "color": "#d9d9d9" } }, "axisTick": { "show": false }, "axisLabel": { "fontSize": 13 } }, "yAxis": { "type": "category", "data": ["1", "2", "3", "4", "5"], "name": "Q14 人际高墙", "nameLocation": "center", "nameGap": 74, "nameTextStyle": { "color": "#666", "fontSize": 11 }, "splitArea": { "show": true }, "axisLine": { "lineStyle": { "color": "#d9d9d9" } }, "axisTick": { "show": false }, "axisLabel": { "fontSize": 13 } }, "visualMap": { "min": 1, "max": 5, "calculable": true, "orient": "horizontal", "left": "center", "bottom": 8, "textStyle": { "color": "#666", "fontSize": 11 }, "inRange": { "color": ["#eefaf8", "#8bddcf", "#4ECDC4", "#1A5F7A"] } }, "series": [{ "type": "heatmap", "data": [["2", "1", 3.0], ["3", "1", 2.38], ["4", "1", 2.88], ["5", "1", 3.0], ["1", "2", 2.78], ["2", "2", 3.14], ["3", "2", 3.37], ["4", "2", 2.95], ["5", "2", 2.57], ["1", "3", 3.41], ["2", "3", 3.39], ["3", "3", 3.06], ["4", "3", 3.21], ["5", "3", 2.74], ["1", "4", 3.33], ["2", "4", 3.25], ["3", "4", 3.3], ["4", "4", 3.34], ["5", "4", 3.62], ["1", "5", 3.0], ["2", "5", 4.0], ["3", "5", 3.71], ["4", "5", 3.44], ["5", "5", 3.67]], "label": { "show": true, "fontSize": 14, "fontWeight": "bold", "color": "#1a3a3a" }, "emphasis": { "itemStyle": { "shadowBlur": 10, "shadowColor": "rgba(0,0,0,.2)" } } }] });
+    chart_c3.setOption({
+      tooltip: {
+        formatter: function (p) {
+          return 'Q7算法认知=' + p.value[0] + ' · Q14人际高墙=' + p.value[1] + '<br/>Q10被关心感均值：<b>' + p.value[2] + '</b>';
+        }
+      }
+    });
+    const chart_c4 = echarts.init(document.getElementById('c4'));
+    chart_c4.setOption({ "tooltip": { "trigger": "axis", "axisPointer": { "type": "shadow" } }, "legend": { "top": 4, "itemWidth": 12, "itemHeight": 8, "textStyle": { "fontSize": 11 } }, "grid": { "left": 56, "right": 16, "top": 52, "bottom": 100 }, "xAxis": { "type": "category", "data": ["台湾·Q14=1", "台湾·Q14=2", "台湾·Q14=3", "台湾·Q14=4", "台湾·Q14=5", "其他·Q14=1", "其他·Q14=2", "其他·Q14=3", "其他·Q14=4", "其他·Q14=5"], "axisLabel": { "rotate": 40, "fontSize": 10 }, "axisLine": { "lineStyle": { "color": "#d9d9d9" } }, "axisTick": { "show": false } }, "yAxis": { "type": "value", "name": "人数", "nameTextStyle": { "color": "#888", "fontSize": 11 }, "axisLine": { "show": false }, "axisTick": { "show": false }, "splitLine": { "lineStyle": { "color": "#ececec", "type": "dashed" } } }, "series": [{ "name": "Q9=1", "type": "bar", "stack": "total", "itemStyle": { "color": "#d1faf5" }, "data": [2, 9, 13, 4, 1, 0, 0, 0, 1, 0] }, { "name": "Q9=2", "type": "bar", "stack": "total", "itemStyle": { "color": "#9AE6D6" }, "data": [7, 20, 34, 25, 5, 0, 3, 5, 2, 0] }, { "name": "Q9=3", "type": "bar", "stack": "total", "itemStyle": { "color": "#4ECDC4" }, "data": [7, 51, 59, 44, 4, 0, 3, 9, 3, 2] }, { "name": "Q9=4", "type": "bar", "stack": "total", "itemStyle": { "color": "#1A5F7A" }, "data": [2, 22, 52, 41, 12, 0, 5, 3, 5, 2] }, { "name": "Q9=5", "type": "bar", "stack": "total", "itemStyle": { "color": "#0d3347" }, "data": [0, 17, 28, 34, 7, 0, 3, 6, 2, 1] }] });
+    const chart_c5 = echarts.init(document.getElementById('c5'));
+    chart_c5.setOption({ "tooltip": { "trigger": "item" }, "legend": { "top": 4, "itemWidth": 12, "itemHeight": 8, "textStyle": { "fontSize": 11 } }, "radar": { "center": ["50%", "56%"], "radius": "58%", "indicator": [{ "name": "文化认同", "max": 100 }, { "name": "隐私担忧", "max": 100 }, { "name": "边界恐惧", "max": 100 }, { "name": "能力退化", "max": 100 }], "axisLine": { "lineStyle": { "color": "#ddd" } }, "splitLine": { "lineStyle": { "color": "#eee" } }, "splitArea": { "areaStyle": { "color": ["#fafafa", "#f4f4f4"] } }, "name": { "textStyle": { "color": "#444", "fontSize": 12 } } }, "series": [{ "type": "radar", "data": [{ "name": "台湾-男", "value": [61.2, 58.9, 57.1, 52.7], "areaStyle": { "opacity": 0.08 }, "lineStyle": { "width": 2.5 } }, { "name": "台湾-女", "value": [61.1, 60.8, 54.5, 53.5], "areaStyle": { "opacity": 0.08 }, "lineStyle": { "width": 2.5 } }, { "name": "其他-男", "value": [57.6, 50.7, 63.8, 49.8], "areaStyle": { "opacity": 0.08 }, "lineStyle": { "width": 2.5 } }, { "name": "其他-女", "value": [63.0, 56.1, 58.1, 60.1], "areaStyle": { "opacity": 0.08 }, "lineStyle": { "width": 2.5 } }] }] });
+    const chart_c6 = echarts.init(document.getElementById('c6'));
+    chart_c6.setOption({ "tooltip": { "trigger": "item" }, "legend": { "top": 4, "itemWidth": 12, "itemHeight": 8, "textStyle": { "fontSize": 11 } }, "radar": { "center": ["50%", "56%"], "radius": "58%", "indicator": [{ "name": "好朋友", "max": 100 }, { "name": "普通朋友", "max": 100 }, { "name": "同学搭子", "max": 100 }, { "name": "陌生人", "max": 100 }, { "name": "家人长辈", "max": 100 }], "axisLine": { "lineStyle": { "color": "#ddd" } }, "splitLine": { "lineStyle": { "color": "#eee" } }, "splitArea": { "areaStyle": { "color": ["#fafafa", "#f4f4f4"] } }, "name": { "textStyle": { "color": "#444", "fontSize": 12 } } }, "series": [{ "type": "radar", "data": [{ "name": "台湾-男", "value": [85.9, 65.4, 53.2, 27.4, 55.6], "areaStyle": { "opacity": 0.08 }, "lineStyle": { "width": 2.5 } }, { "name": "台湾-女", "value": [87.6, 64.9, 50.8, 29.7, 55.0], "areaStyle": { "opacity": 0.08 }, "lineStyle": { "width": 2.5 } }, { "name": "其他-男", "value": [84.2, 57.7, 50.2, 28.0, 56.3], "areaStyle": { "opacity": 0.08 }, "lineStyle": { "width": 2.5 } }, { "name": "其他-女", "value": [86.7, 59.7, 55.8, 32.5, 53.9], "areaStyle": { "opacity": 0.08 }, "lineStyle": { "width": 2.5 } }] }] });
+    const chart_c7 = echarts.init(document.getElementById('c7'));
+    chart_c7.setOption({ "tooltip": { "trigger": "axis", "axisPointer": { "type": "shadow" } }, "legend": { "top": 4, "itemWidth": 12, "itemHeight": 8, "textStyle": { "fontSize": 11 } }, "grid": { "left": 56, "right": 16, "top": 52, "bottom": 108 }, "xAxis": { "type": "category", "data": ["台湾·15分钟以下", "台湾·15 ~ 30分钟", "台湾·30分钟 ~ 1小时", "台湾·1小时 ~ 2小时", "台湾·2小时以上", "其他·15分钟以下", "其他·15 ~ 30分钟", "其他·30分钟 ~ 1小时", "其他·1小时 ~ 2小时", "其他·2小时以上"], "axisLabel": { "rotate": 42, "fontSize": 9 }, "axisLine": { "lineStyle": { "color": "#d9d9d9" } }, "axisTick": { "show": false } }, "yAxis": { "type": "value", "name": "人数", "nameTextStyle": { "color": "#888", "fontSize": 11 }, "axisLine": { "show": false }, "axisTick": { "show": false }, "splitLine": { "lineStyle": { "color": "#ececec", "type": "dashed" } } }, "series": [{ "name": "基础网页/App端AI", "type": "bar", "stack": "all", "itemStyle": { "color": "#9AE6D6" }, "data": [23, 50, 50, 47, 31, 1, 2, 4, 5, 7] }, { "name": "专属记忆AI", "type": "bar", "stack": "all", "itemStyle": { "color": "#4ECDC4" }, "data": [12, 28, 44, 44, 46, 0, 2, 6, 4, 6] }, { "name": "全时智能体Agent", "type": "bar", "stack": "all", "itemStyle": { "color": "#1A5F7A" }, "data": [9, 15, 25, 28, 23, 0, 2, 5, 4, 3] }, { "name": "具身智能机器人", "type": "bar", "stack": "all", "itemStyle": { "color": "#FF7F50" }, "data": [3, 2, 1, 7, 12, 1, 0, 1, 1, 1] }] });
+
+    window.addEventListener('resize', () => {
+      [chart_c1, chart_c2, chart_c3, chart_c4, chart_c5, chart_c6, chart_c7].forEach(c => c.resize());
+    });
+  </script>
+</body>
+
+</html>

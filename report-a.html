@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>青年 AI 情感依赖与信任边界 · 交叉分析图表</title>
+    <script src="./assets/echarts.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB",
+                "Microsoft YaHei", "Segoe UI", Arial, sans-serif;
+            background: #f3f2ef;
+            color: #161616;
+            padding: 32px 20px 48px;
+        }
+
+        .page {
+            max-width: 1180px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .header h1 {
+            font-size: 20px;
+            font-weight: 800;
+            letter-spacing: 0.02em;
+            color: #111111;
+            margin-bottom: 6px;
+        }
+
+        .header p {
+            font-size: 12px;
+            color: #8a8a8a;
+            line-height: 1.8;
+        }
+
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .chart-card {
+            background: #fcfcfb;
+            border-radius: 12px;
+            padding: 18px 18px 14px;
+            border: 1px solid rgba(20, 20, 20, 0.04);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02), 0 8px 24px rgba(0, 0, 0, 0.03);
+        }
+
+        .chart-card.full {
+            grid-column: 1 / -1;
+        }
+
+        .chart-top {
+            margin-bottom: 8px;
+        }
+
+        .card-title {
+            font-size: 14px;
+            line-height: 1.55;
+            font-weight: 800;
+            color: #121212;
+            margin-bottom: 6px;
+        }
+
+        .tag-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            height: 24px;
+            padding: 0 8px;
+            border-radius: 6px;
+            font-size: 11px;
+            color: #0f766e;
+            background: #edf9f7;
+            border: 1px solid #cfeee8;
+            letter-spacing: 0.01em;
+        }
+
+        .chart-box {
+            width: 100%;
+            height: 290px;
+        }
+
+        .chart-box.tall {
+            height: 360px;
+        }
+
+        .card-note {
+            margin-top: 8px;
+            font-size: 11.5px;
+            line-height: 1.65;
+            color: #7b7b7b;
+        }
+
+        .detail-block {
+            margin-top: 10px;
+            padding: 10px 12px;
+            background: #f8f7f4;
+            border: 1px solid rgba(20, 20, 20, 0.05);
+            border-radius: 9px;
+        }
+
+        .detail-strong {
+            background: #f6fbfa;
+            border-color: #dbeee9;
+        }
+
+        .detail-title {
+            font-size: 11.5px;
+            font-weight: 800;
+            color: #1f1f1f;
+            margin-bottom: 6px;
+        }
+
+        .detail-text {
+            font-size: 12px;
+            line-height: 1.78;
+            color: #5e5e5e;
+        }
+
+        @media (max-width: 860px) {
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .chart-card.full {
+                grid-column: auto;
+            }
+
+            .chart-box,
+            .chart-box.tall {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+        <div class="header">
+            <h1>青年对人工智能的信任边界与情感归属</h1>
+            <p>n = 555 · 交叉分析可视化 · 问卷调查数据</p>
+            <p>本页面由同文件夹中的 CSV 自动生成，所有图表下方都加入了原问卷题目原文、分析目的与论文写法提示。</p>
+        </div>
+
+        <div class="charts-grid">
+
+            <section class="chart-card">
+                <div class="chart-top">
+                    <div class="card-title">使用时长 × AI情感依赖（Q4 × Q9 / Q11）</div>
+                    <div class="tag-row"><span class="tag">分组比较</span><span class="tag">使用行为</span><span
+                            class="tag">情感依赖</span></div>
+                </div>
+
+                <div id="c1" class="chart-box"></div>
+
+                <div class="card-note">使用时长越长，情绪低落时选择AI倾诉与AI失联后的失落感整体更高。</div>
+
+                <div class="detail-block">
+                    <div class="detail-title">原问卷题目</div>
+                    <div class="detail-text">
+                        第4题：您平均每天使用AI聊天工具的时间大约是。<br>第9题：当我情绪低落、感到孤独或烦恼时，我更倾向于选择没有人类缺点的AI作为倾听者，而不是找身边的朋友。<br>第11题：如果我平时频繁交流、记录了我很多私人记忆的AI突然无法使用，我会感到明显的不适、空虚或失落。
+                    </div>
+                </div>
+
+                <div class="detail-block">
+                    <div class="detail-title">这张图在分析什么</div>
+                    <div class="detail-text">分析目的：观察 AI 使用时长是否会推动青年在情绪低落时转向 AI，并在 AI 突然中断时产生更强情感失落。</div>
+                </div>
+
+                <div class="detail-block detail-strong">
+                    <div class="detail-title">你在论文里可以怎么写</div>
+                    <div class="detail-text">
+                        这张图把“第4题：您平均每天使用AI聊天工具的时间大约是。”与“第9题：当我情绪低落、感到孤独或烦恼时，我更倾向于选择没有人类缺点的AI作为倾听者，而不是找身边的朋友。”“第11题：如果我平时频繁交流、记录了我很多私人记忆的AI突然无法使用，我会感到明显的不适、空虚或失落。”放在一起观察。从最短使用时长到最长使用时长，第9题均值上升（首尾差约
+                        0.71 分），第11题均值上升（首尾差约 0.77 分）。如果柱形整体越往右越高，就可以写成：日常使用AI的时间越长，受访者越容易在情绪低落时转向AI，并在AI无法使用时产生更明显的失落感。
+                    </div>
+                </div>
+            </section>
+
+
+            <section class="chart-card">
+                <div class="chart-top">
+                    <div class="card-title">情感型用途比重 × 选AI倾诉倾向（Q5 × Q9）</div>
+                    <div class="tag-row"><span class="tag">用途分段</span><span class="tag">情感型使用</span><span
+                            class="tag">正向关系</span></div>
+                </div>
+
+                <div id="c2" class="chart-box"></div>
+
+                <div class="card-note">情感用途占比越高，Q9 均值通常越高，显示出较清晰的正向关系。</div>
+
+                <div class="detail-block">
+                    <div class="detail-title">原问卷题目</div>
+                    <div class="detail-text">
+                        第5题：请分配您在日常使用AI时，以下两种用途所占的时间比重（两项相加之和必须等于100%）。本分析重点使用“情感型用途”所占比重。<br>第9题：当我情绪低落、感到孤独或烦恼时，我更倾向于选择没有人类缺点的AI作为倾听者，而不是找身边的朋友。
+                    </div>
+                </div>
+
+                <div class="detail-block">
+                    <div class="detail-title">这张图在分析什么</div>
+                    <div class="detail-text">分析目的：观察一个人越把 AI 用于情感陪伴，而不是功能工具时，是否越容易在低落时选择 AI 来倾诉。</div>
+                </div>
+
+                <div class="detail-block detail-strong">
+                    <div class="detail-title">你在论文里可以怎么写</div>
+                    <div class="detail-text">
+                        这张图把“第5题：请分配您在日常使用AI时，以下两种用途所占的时间比重（两项相加之和必须等于100%）。本分析重点使用“情感型用途”所占比重。”与“第9题：当我情绪低落、感到孤独或烦恼时，我更倾向于选择没有人类缺点的AI作为倾听者，而不是找身边的朋友。”进行交叉。从低情感用途组到高情感用途组，第9题均值上升（首尾差约
+                        2.43 分）。如果柱形图整体抬升，就可以写成：在日常使用AI时，把更多时间分配给情感型用途的人，更容易在情绪低落时把AI当作倾诉对象。</div>
+                </div>
+            </section>
+
+
+            <section class="chart-card full">
+                <div class="chart-top">
+                    <div class="card-title">人际筑墙程度 × 情绪时选AI倾诉（Q14 × Q9）——交叉列联热力图</div>
+                    <div class="tag-row"><span class="tag">交叉列联</span><span class="tag">热力图</span><span
+                            class="tag">人际高墙</span></div>
+                </div>
+
+                <div id="c3" class="chart-box tall"></div>
+
+                <div class="card-note">人际高墙程度越高者，在情绪低落时倾向 AI 倾诉的频数更集中于高分区域。</div>
+
+                <div class="detail-block">
+                    <div class="detail-title">原问卷题目</div>
+                    <div class="detail-text">
+                        第14题：在和很多人相处并渐渐发现他们的缺点后，我开始在人际关系上筑起高墙，认为人与人之间应该“君子之交淡如水”。<br>第9题：当我情绪低落、感到孤独或烦恼时，我更倾向于选择没有人类缺点的AI作为倾听者，而不是找身边的朋友。
+                    </div>
+                </div>
+
+                <div class="detail-block">
+                    <div class="detail-title">这张图在分析什么</div>
+                    <div class="detail-text">分析目的：检验现实中的人际防御心理，是否会推动个体在情绪问题上转向 AI。</div>
+                </div>
+
+                <div class="detail-block detail-strong">
+                    <div class="detail-title">你在论文里可以怎么写</div>
+                    <div class="detail-text">
+                        这张图把“第14题：在和很多人相处并渐渐发现他们的缺点后，我开始在人际关系上筑起高墙，认为人与人之间应该“君子之交淡如水”。”与“第9题：当我情绪低落、感到孤独或烦恼时，我更倾向于选择没有人类缺点的AI作为倾听者，而不是找身边的朋友。”进行交叉。按第14题从低分到高分分组后，第9题均值上升（首尾差约
+                        1.26 分）。如果热力图高值主要集中在右上区域，就可以写成：越倾向在人际关系中筑起高墙的人，越可能在情绪低落时优先选择AI，而不是现实中的朋友。</div>
+                </div>
+            </section>
+
+
+            <section class="chart-card">
+                <div class="chart-top">
+                    <div class="card-title">理性认知 × 情感卷入悖论（Q7 × Q10 / Q11）</div>
+                    <div class="tag-row"><span class="tag">悖论分析</span><span class="tag">理性认知</span><span
+                            class="tag">情感卷入</span></div>
+                </div>
+
+                <div id="c4" class="chart-box"></div>
+
+                <div class="card-note">即使更清楚 AI 是算法产物，情感卷入程度也不一定被明显压低。</div>
+
+                <div class="detail-block">
+                    <div class="detail-title">原问卷题目</div>
+                    <div class="detail-text">
+                        第7题：我愿意相信AI软件给出的一切情感回应，本质上都是算法模型和概率加权计算的结果。<br>第10题：虽然AI不是人类，但在与它这种“永远不会主动越界”的互动中，我仍能真实地感受到被关心和理解。<br>第11题：如果我平时频繁交流、记录了我很多私人记忆的AI突然无法使用，我会感到明显的不适、空虚或失落。
+                    </div>
+                </div>
+
+                <div class="detail-block">
+                    <div class="detail-title">这张图在分析什么</div>
+                    <div class="detail-text">分析目的：检验受访者越清楚 AI 的本质只是算法时，是否就越不容易产生被关心感与失落感。</div>
+                </div>
+
+                <div class="detail-block detail-strong">
+                    <div class="detail-title">你在论文里可以怎么写</div>
+                    <div class="detail-text">
+                        这张图把“第7题：我愿意相信AI软件给出的一切情感回应，本质上都是算法模型和概率加权计算的结果。”与“第10题：虽然AI不是人类，但在与它这种“永远不会主动越界”的互动中，我仍能真实地感受到被关心和理解。”“第11题：如果我平时频繁交流、记录了我很多私人记忆的AI突然无法使用，我会感到明显的不适、空虚或失落。”放在一起比较。第10题均值下降（首尾差约
+                        0.37 分），第11题均值下降（首尾差约 0.21 分）。如果两条线整体没有被明显压低，就可以写成：即使受访者理性上知道AI的情感回应本质是算法生成，这种认知也并不能明显阻止情感卷入。
+                    </div>
+                </div>
+            </section>
+
+
+            <section class="chart-card">
+                <div class="chart-top">
+                    <div class="card-title">性别 × AI情感依赖三题（Q2 × Q9 / Q10 / Q11）</div>
+                    <div class="tag-row"><span class="tag">分组比较</span><span class="tag">性别差异</span><span
+                            class="tag">情感依赖</span></div>
+                </div>
+
+                <div id="c5" class="chart-box"></div>
+
+                <div class="card-note">男女在三项情感依赖指标上的差异整体不大，但 Q9 仍可保留作重点比较。</div>
+
+                <div class="detail-block">
+                    <div class="detail-title">原问卷题目</div>
+                    <div class="detail-text">
+                        第2题：您的性别。<br>第9题：当我情绪低落、感到孤独或烦恼时，我更倾向于选择没有人类缺点的AI作为倾听者，而不是找身边的朋友。<br>第10题：虽然AI不是人类，但在与它这种“永远不会主动越界”的互动中，我仍能真实地感受到被关心和理解。<br>第11题：如果我平时频繁交流、记录了我很多私人记忆的AI突然无法使用，我会感到明显的不适、空虚或失落。
+                    </div>
+                </div>
+
+                <div class="detail-block">
+                    <div class="detail-title">这张图在分析什么</div>
+                    <div class="detail-text">分析目的：比较不同性别在 AI 情感依赖三项核心指标上的均值差异。</div>
+                </div>
+
+                <div class="detail-block detail-strong">
+                    <div class="detail-title">你在论文里可以怎么写</div>
+                    <div class="detail-text">
+                        这张图把“第2题：您的性别。”与“第9题：当我情绪低落、感到孤独或烦恼时，我更倾向于选择没有人类缺点的AI作为倾听者，而不是找身边的朋友。”“第10题：虽然AI不是人类，但在与它这种“永远不会主动越界”的互动中，我仍能真实地感受到被关心和理解。”“第11题：如果我平时频繁交流、记录了我很多私人记忆的AI突然无法使用，我会感到明显的不适、空虚或失落。”进行交叉比较。它主要用于观察不同性别在AI情感依赖三项核心指标上的均值差异。如果男女三项差距都不大，就可以写成：不同性别在AI情感依赖上的差异有限，性别并不是决定这一现象的核心因素。
+                    </div>
+                </div>
+            </section>
+
+
+            <section class="chart-card full">
+                <div class="chart-top">
+                    <div class="card-title">福建 vs 台湾 × Q15 技术信任四维雷达（地域跨文化对比）</div>
+                    <div class="tag-row"><span class="tag">跨文化比较</span><span class="tag">雷达图</span><span
+                            class="tag">地域差异</span></div>
+                </div>
+
+                <div id="c6" class="chart-box"></div>
+
+                <div class="card-note">四个维度可用于论文中的跨地区对照展示，即使差异不显著，也能呈现结构轮廓。</div>
+
+                <div class="detail-block">
+                    <div class="detail-title">原问卷题目</div>
+                    <div class="detail-text">
+                        第3题：您的学校/身份属于以下哪类。<br>第15题：面对科技的爆发，我们的信任往往在“现实的传统文化根基”与“未来的数字虚拟世界”之间拉扯。请拖动各行滑动条（0-100分），评估您对以下陈述的认同程度。本图使用其中四项：闽台文化认同、隐私与数据失控担忧、工具与数字生命边界恐惧、AI导致现实独立决断与社交能力退化的担忧。
+                    </div>
+                </div>
+
+                <div class="detail-block">
+                    <div class="detail-title">这张图在分析什么</div>
+                    <div class="detail-text">分析目的：比较福建与台湾样本在文化认同和 AI 技术担忧上的整体结构差异。</div>
+                </div>
+
+                <div class="detail-block detail-strong">
+                    <div class="detail-title">你在论文里可以怎么写</div>
+                    <div class="detail-text">
+                        这张图把“第3题：您的学校/身份属于以下哪类。”与“第15题：面对科技的爆发，我们的信任往往在“现实的传统文化根基”与“未来的数字虚拟世界”之间拉扯。请拖动各行滑动条（0-100分），评估您对以下陈述的认同程度。本图使用其中四项：闽台文化认同、隐私与数据失控担忧、工具与数字生命边界恐惧、AI导致现实独立决断与社交能力退化的担忧。”进行交叉。这里重点比较福建与台湾样本在文化认同、隐私担忧、边界恐惧、能力退化担忧四个维度上的平均得分结构。如果两组雷达轮廓接近，就可以写成：福建与台湾青年在传统文化认同及AI技术担忧上的整体结构相对接近，跨地域差异有限。
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script>
+        const TEAL = '#4ECDC4';
+        const ORANGE = '#FF7F50';
+        const PINK = '#F8A5B1';
+        const DARK = '#1A5F7A';
+        const axisLine = { lineStyle: { color: '#d9d9d9', width: 1 } };
+        const splitLine = { lineStyle: { color: '#ececec', type: 'dashed' } };
+        const axisLabel = { color: '#565656', fontSize: 12 };
+        const baseGrid = { left: 52, right: 20, top: 46, bottom: 44 };
+
+        const d1 = [{ "name": "15分钟以下", "Q9": 2.89, "Q11": 2.52, "n": 49 }, { "name": "15~30分钟", "Q9": 2.91, "Q11": 2.75, "n": 101 }, { "name": "30分钟~1小时", "Q9": 3.32, "Q11": 2.82, "n": 136 }, { "name": "1小时~2小时", "Q9": 3.55, "Q11": 3.14, "n": 140 }, { "name": "2小时以上", "Q9": 3.6, "Q11": 3.29, "n": 129 }];
+        const d2 = [{ "name": "0-10%", "Q9": 2.57, "n": 143 }, { "name": "10-20%", "Q9": 3.23, "n": 164 }, { "name": "20-30%", "Q9": 3.59, "n": 144 }, { "name": "30-50%", "Q9": 4.17, "n": 102 }, { "name": "50%以上", "Q9": 5.0, "n": 2 }];
+        const d3 = [[1, 1, 2], [2, 1, 7], [3, 1, 7], [4, 1, 2], [1, 2, 9], [2, 2, 23], [3, 2, 54], [4, 2, 27], [5, 2, 20], [1, 3, 12], [2, 3, 37], [3, 3, 67], [4, 3, 55], [5, 3, 33], [1, 4, 5], [2, 4, 27], [3, 4, 46], [4, 4, 46], [5, 4, 36], [2, 5, 5], [3, 5, 6], [4, 5, 14], [5, 5, 8]];
+        const d4 = [{ "name": "非常不同意", "Q10": 3.27, "Q11": 2.88, "n": 33 }, { "name": "不同意", "Q10": 3.34, "Q11": 3.22, "n": 107 }, { "name": "一般/不确定", "Q10": 3.21, "Q11": 2.92, "n": 206 }, { "name": "同意", "Q10": 3.17, "Q11": 2.99, "n": 151 }, { "name": "非常同意", "Q10": 2.9, "Q11": 2.67, "n": 51 }];
+        const d5 = [{ "name": "男", "Q9": 3.31, "Q10": 3.12, "Q11": 2.92, "n": 281 }, { "name": "女", "Q9": 3.36, "Q10": 3.28, "Q11": 3.02, "n": 274 }];
+        const d6 = { "台湾": { "文化认同": 61.2, "隐私担忧": 59.8, "边界恐惧": 55.8, "能力退化担忧": 53.1, "n": 500 } };
+
+        // 图1
+        const c1Chart = echarts.init(document.getElementById('c1'));
+        c1Chart.setOption({
+            color: [TEAL, ORANGE],
+            animationDuration: 700,
+            legend: {
+                top: 4, right: 0,
+                textStyle: { color: '#444', fontSize: 12 },
+                itemWidth: 12, itemHeight: 8
+            },
+            grid: baseGrid,
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: { type: 'shadow' },
+                backgroundColor: 'rgba(28,28,28,.92)',
+                borderWidth: 0,
+                textStyle: { color: '#fff' }
+            },
+            xAxis: {
+                type: 'category',
+                data: d1.map(x => x.name),
+                axisLine,
+                axisTick: { show: false },
+                axisLabel: { ...axisLabel, interval: 0, fontSize: 11 }
+            },
+            yAxis: {
+                type: 'value',
+                min: 1, max: 5, interval: 1,
+                axisLine: { show: false },
+                axisTick: { show: false },
+                axisLabel,
+                splitLine,
+                name: '均值(1-5)',
+                nameTextStyle: { color: '#888', fontSize: 11 }
+            },
+            series: [
+                {
+                    name: 'Q9 选AI倾诉',
+                    type: 'bar',
+                    barWidth: '28%',
+                    data: d1.map(x => x.Q9),
+                    itemStyle: { borderRadius: [4, 4, 0, 0] },
+                    label: {
+                        show: true,
+                        position: 'insideTop',
+                        color: '#fff',
+                        fontSize: 11,
+                        formatter: p => p.value == null ? '' : Number(p.value).toFixed(2)
+                    }
+                },
+                {
+                    name: 'Q11 失落感',
+                    type: 'bar',
+                    barWidth: '28%',
+                    data: d1.map(x => x.Q11),
+                    itemStyle: { borderRadius: [4, 4, 0, 0] },
+                    label: {
+                        show: true,
+                        position: 'insideTop',
+                        color: '#fff',
+                        fontSize: 11,
+                        formatter: p => p.value == null ? '' : Number(p.value).toFixed(2)
+                    }
+                }
+            ]
+        });
+
+        // 图2
+        const c2Chart = echarts.init(document.getElementById('c2'));
+        c2Chart.setOption({
+            animationDuration: 700,
+            grid: { left: 56, right: 16, top: 28, bottom: 52 },
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: { type: 'shadow' },
+                backgroundColor: 'rgba(28,28,28,.92)',
+                borderWidth: 0,
+                textStyle: { color: '#fff' },
+                formatter: params => {
+                    const p = params[0];
+                    return `${p.name}<br/>Q9均值：${p.value == null ? '无数据' : Number(p.value).toFixed(2)}`;
+                }
+            },
+            xAxis: {
+                type: 'category',
+                data: d2.map(x => x.name),
+                axisLine,
+                axisTick: { show: false },
+                axisLabel: { ...axisLabel, fontSize: 11 }
+            },
+            yAxis: {
+                type: 'value',
+                min: 1, max: 5, interval: 1,
+                axisLine: { show: false },
+                axisTick: { show: false },
+                axisLabel,
+                splitLine,
+                name: 'Q9均值',
+                nameTextStyle: { color: '#888', fontSize: 11 }
+            },
+            series: [{
+                type: 'bar',
+                barWidth: '56%',
+                data: d2.map(x => x.Q9),
+                itemStyle: {
+                    borderRadius: [4, 4, 0, 0],
+                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                        { offset: 0, color: '#4ECDC4' },
+                        { offset: 1, color: '#1A5F7A' }
+                    ])
+                },
+                label: {
+                    show: true,
+                    position: 'insideTop',
+                    color: '#fff',
+                    fontSize: 11,
+                    fontWeight: 700,
+                    formatter: p => p.value == null ? '' : Number(p.value).toFixed(2)
+                }
+            }]
+        });
+
+        // 图3
+        const c3Chart = echarts.init(document.getElementById('c3'));
+        c3Chart.setOption({
+            animationDuration: 700,
+            tooltip: {
+                position: 'top',
+                backgroundColor: 'rgba(28,28,28,.92)',
+                borderWidth: 0,
+                textStyle: { color: '#fff' },
+                formatter: p => `Q14=${p.value[1]} · Q9=${p.value[0]}<br/>人数：${p.value[2]}`
+            },
+            grid: { left: 90, right: 80, top: 24, bottom: 72 },
+            xAxis: {
+                type: 'category',
+                data: ['1-非常不同意', '2-不同意', '3-一般', '4-同意', '5-非常同意'],
+                splitArea: { show: true },
+                axisLine,
+                axisTick: { show: false },
+                axisLabel: { ...axisLabel, fontSize: 11, interval: 0 },
+                name: 'Q9 情绪低落时选AI倾诉',
+                nameLocation: 'center',
+                nameGap: 44,
+                nameTextStyle: { color: '#777', fontSize: 11 }
+            },
+            yAxis: {
+                type: 'category',
+                data: ['1-非常不同意', '2-不同意', '3-一般', '4-同意', '5-非常同意'],
+                splitArea: { show: true },
+                axisLine,
+                axisTick: { show: false },
+                axisLabel: { ...axisLabel, fontSize: 11 },
+                name: 'Q14 人际高墙',
+                nameLocation: 'center',
+                nameGap: 66,
+                nameTextStyle: { color: '#777', fontSize: 11 }
+            },
+            visualMap: {
+                min: 0,
+                max: Math.max(...d3.map(v => v[2]), 1),
+                calculable: true,
+                orient: 'horizontal',
+                left: 'center',
+                bottom: 6,
+                textStyle: { color: '#666', fontSize: 11 },
+                inRange: {
+                    color: ['#eefaf8', '#8bddcf', '#4ECDC4', '#1A5F7A']
+                }
+            },
+            series: [{
+                type: 'heatmap',
+                data: d3,
+                label: {
+                    show: true,
+                    color: '#243434',
+                    fontSize: 11,
+                    formatter: p => p.value[2] > 0 ? p.value[2] : ''
+                },
+                emphasis: {
+                    itemStyle: {
+                        shadowBlur: 10,
+                        shadowColor: 'rgba(0,0,0,.18)'
+                    }
+                }
+            }]
+        });
+
+        // 图4
+        const c4Chart = echarts.init(document.getElementById('c4'));
+        c4Chart.setOption({
+            color: [PINK, ORANGE],
+            animationDuration: 700,
+            legend: {
+                top: 4, right: 0,
+                textStyle: { color: '#444', fontSize: 12 },
+                itemWidth: 12, itemHeight: 8
+            },
+            grid: baseGrid,
+            tooltip: {
+                trigger: 'axis',
+                backgroundColor: 'rgba(28,28,28,.92)',
+                borderWidth: 0,
+                textStyle: { color: '#fff' }
+            },
+            xAxis: {
+                type: 'category',
+                data: d4.map(x => x.name),
+                axisLine,
+                axisTick: { show: false },
+                axisLabel: { ...axisLabel, fontSize: 11, interval: 0 }
+            },
+            yAxis: {
+                type: 'value',
+                min: 1, max: 5, interval: 1,
+                axisLine: { show: false },
+                axisTick: { show: false },
+                axisLabel,
+                splitLine,
+                name: '均值(1-5)',
+                nameTextStyle: { color: '#888', fontSize: 11 }
+            },
+            series: [
+                {
+                    name: 'Q10 被关心感',
+                    type: 'line',
+                    smooth: true,
+                    symbol: 'circle',
+                    symbolSize: 8,
+                    data: d4.map(x => x.Q10),
+                    lineStyle: { width: 3 },
+                    areaStyle: { opacity: 0.08 }
+                },
+                {
+                    name: 'Q11 失落感',
+                    type: 'line',
+                    smooth: true,
+                    symbol: 'circle',
+                    symbolSize: 8,
+                    data: d4.map(x => x.Q11),
+                    lineStyle: { width: 3 },
+                    areaStyle: { opacity: 0.08 }
+                }
+            ]
+        });
+
+        // 图5
+        const c5Chart = echarts.init(document.getElementById('c5'));
+        c5Chart.setOption({
+            color: [TEAL, PINK],
+            animationDuration: 700,
+            legend: {
+                top: 4, right: 0,
+                textStyle: { color: '#444', fontSize: 12 },
+                itemWidth: 12, itemHeight: 8
+            },
+            grid: { left: 52, right: 20, top: 42, bottom: 42 },
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: { type: 'shadow' },
+                backgroundColor: 'rgba(28,28,28,.92)',
+                borderWidth: 0,
+                textStyle: { color: '#fff' }
+            },
+            xAxis: {
+                type: 'category',
+                data: ['Q9 选AI倾诉', 'Q10 被关心感', 'Q11 失落感'],
+                axisLine,
+                axisTick: { show: false },
+                axisLabel
+            },
+            yAxis: {
+                type: 'value',
+                min: 1, max: 5, interval: 1,
+                axisLine: { show: false },
+                axisTick: { show: false },
+                axisLabel,
+                splitLine
+            },
+            series: d5.map(s => ({
+                name: s.name,
+                type: 'bar',
+                barWidth: '28%',
+                data: [s.Q9, s.Q10, s.Q11],
+                itemStyle: { borderRadius: [4, 4, 0, 0] },
+                label: {
+                    show: true,
+                    position: 'insideTop',
+                    color: '#fff',
+                    fontSize: 11,
+                    formatter: p => p.value == null ? '' : Number(p.value).toFixed(2)
+                }
+            }))
+        });
+
+        // 图6
+        const dims = ['文化认同', '隐私担忧', '边界恐惧', '能力退化担忧'];
+        const c6Chart = echarts.init(document.getElementById('c6'));
+        c6Chart.setOption({
+            color: [TEAL, ORANGE],
+            animationDuration: 700,
+            tooltip: {
+                trigger: 'item',
+                backgroundColor: 'rgba(28,28,28,.92)',
+                borderWidth: 0,
+                textStyle: { color: '#fff' }
+            },
+            legend: {
+                top: 6, right: 0,
+                textStyle: { color: '#444', fontSize: 12 },
+                itemWidth: 12, itemHeight: 8
+            },
+            radar: {
+                center: ['50%', '58%'],
+                radius: '62%',
+                indicator: dims.map(d => ({ name: d, max: 100 })),
+                axisLine: { lineStyle: { color: '#dddddd' } },
+                splitLine: { lineStyle: { color: '#eeeeee' } },
+                splitArea: {
+                    areaStyle: {
+                        color: ['#fbfbfb', '#f6f6f6']
+                    }
+                },
+                name: {
+                    textStyle: { color: '#555', fontSize: 12 }
+                }
+            },
+            series: [{
+                type: 'radar',
+                data: Object.entries(d6).map(([region, vals]) => ({
+                    name: region,
+                    value: dims.map(d => vals[d]),
+                    areaStyle: { opacity: 0.12 },
+                    lineStyle: { width: 2.5 },
+                    symbolSize: 5
+                }))
+            }]
+        });
+
+        window.addEventListener('resize', () => {
+            [c1Chart, c2Chart, c3Chart, c4Chart, c5Chart, c6Chart].forEach(chart => chart.resize());
+        });
+    </script>
+</body>
+
+</html>
